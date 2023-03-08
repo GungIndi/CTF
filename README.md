@@ -1,2 +1,4 @@
 # CTF
-my ctf log 
+
+CTF Dump
+
