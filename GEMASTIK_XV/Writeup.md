@@ -8,7 +8,7 @@ Untuk mendapat flag dari challenge ini kami menggunakan analisa pada traffic dal
 
 **Hasil Analisa Traffic**
 
-![Traffic](/img/traffic.png)
+![Traffic](/GEMASTIK_XV/img/traffic.png)
 
 Saat menganalisa traffic, kami menyadari bahwa dalam traffic ada
 pesan yang dienkripsi dengan base64 pada setiap traffic yang
@@ -16,7 +16,7 @@ ada. dan setelah di decode, ternyata data yang dikirim adalah sebuah file png ya
 
 **Decode base64**
 
-![Decode](/img/decode.png)
+![Decode](/GEMASTIK_XV/img/decode.png)
 
 Setelah tahu jika didalamnya terdapat file png, kami menggunakan
 online tools untuk convert base64 menjadi gambar, dan ternyata
@@ -25,13 +25,13 @@ tertentu. Dimana karakter tersebut merupakan bagian dari flag.
 
 **Convert base64 to PNG**
 
-![convert](/img/convertbase.png)
+![convert](/GEMASTIK_XV/img/convertbase.png)
 
 **Merangkai flag**
 
-![arrange](/img/arrangeflag1.png)
+![arrange](/GEMASTIK_XV/img/arrangeflag1.png)
 
-![arrange](/img/arrangeflag2.png)
+![arrange](/GEMASTIK_XV/img/arrangeflag2.png)
 
 kami mendapat huruf yang merupakan bagian dari flag yang acak,
 setelah kami menemukan huruf G besar yang merupakan awal dari
@@ -53,17 +53,17 @@ Untuk mendapatkan flag dari challenge ini kami melakukan dekompilasi pada file r
 
 **Hasil Dekompilasi**
 
-![Dekompilasi](/img/dekompilasi.png)
+![Dekompilasi](/GEMASTIK_XV/img/dekompilasi.png)
 
 Gambar diatas adalah hasil dekompilasi dari file reversing-itu-mudah dengan menggunakan perangkat lunak Ghidra. Untuk masuk kefungsi utama (main) dapat dilakukan dengan klik dua kali pada FUN_00401140.
 
 **Fungsi Main**
 
-![main](/img/main.png)
+![main](/GEMASTIK_XV/img/main.png)
 
 Gambar diatas adalah hasil dekompilasi dari fungsi utama (main)dari file reversing-itu-mudah. Pada pada bagian statement atau pernyataan yang mensyaratkan kondisi param1 sama dengan dua,terdapat beberapa fungsi berbeda. Jika fungsi-fungsi tersebut dibuka maka akan didapatkan sebuah karakter yang jika disusun akan membentuk string dari flag yang dicari.
 
-![dekom](/img/dekom.png)
+![dekom](/GEMASTIK_XV/img/dekom.png)
 
 Gambar diatas adalah hasil dekompilasi dari fungsi-fungsi yang terdapat pada bagian statement atau pernyataan yang mensyaratkan kondisi param1 sama dengan dua di fungsi utama sebelumnya. Dapat dilihat terdapat karakter ‘G’ yang merupakan karakter penyusundari string flag yang dicari. Untuk mendapatkan karakter penyusun lainnya dapat dilakukan dengan cara yang sama pada fungsi-fungsi lainnya.
 
