@@ -1,4 +1,4 @@
 # CTF
 
-CTF Dump
+## My CTF Log
 
