@@ -4,11 +4,21 @@
 
 **1. Note Manager**
 
-Jadi pada chall ini terdapat sebuah web yang memungkinkan kita untuk login dan register, jadi kami mencoba register dan tidak menemukan apa”, lalu kami berniat melakukan `LFI` dengan menambahkan code execution pada username berupa command `<?= system($_GET[“cmd”]); ?>`. Setelah mengotak-atik ternyata terdapat celah `LFI` pada saat kami melihat note yang telah kita buat pada `view_note.php` yang menggunakan query `id=` yang bisa kami inputkan payload, jadi kami menginput payload
-`php://filter/convert.base64-encode/resource=index.php`
-untuk mengambil kode php dari file `index.php`. dan setelah dianalisa kita bisa melihat file `.user` yang berisi username dan password yang sudah di hash menggunakan md5. Setelah lama berpikir, lalu kami mencoba menggunakan `http://103.49.238.77:57270/view_note.php?id=.user` untuk payload mencoba melihat aktivitas yang masuk ke dalam file `.user` dan didapat banyak username dan password yang berupa md5hash yang sepertinya juga diinput oleh peserta lain. Namun setelah melihat-lihat sampe akhir, saya mendapat keanehan pada tulisan warning system seperti pada gambar dibawah
+Jadi pada chall ini terdapat sebuah web yang memungkinkan kita untuk login dan register, jadi kami mencoba register dan tidak menemukan apa”, lalu kami berniat melakukan `LFI` dengan menambahkan code execution pada username yang isinya  berupa command 
+```
+<?= system($_GET[“cmd”]); ?>
+``` 
+Setelah mengotak-atik ternyata terdapat celah `LFI` pada saat kami melihat note yang telah kita buat pada `view_note.php` yang menggunakan query `id=` yang bisa kami inputkan payload, jadi kami menginput payload
+```
+php://filter/convert.base64-encode/resource=index.php
+```
+untuk mengambil kode php dari file `index.php`. dan setelah dianalisa kita bisa melihat file `.user` yang berisi username dan password yang sudah di hash menggunakan md5. Setelah lama berpikir, lalu kami mencoba menggunakan payload
+```
+http://103.49.238.77:57270/view_note.php?id=.user
+```
+untuk mencoba melihat aktivitas yang masuk ke dalam file `.user` dan didapat banyak username dan password yang berupa md5hash yang sepertinya juga diinput oleh peserta lain. Namun setelah melihat-lihat sampe akhir, saya mendapat keanehan pada tulisan warning system seperti pada gambar dibawah
 
-![WarningSystem](/img/WarnigSystem.png)
+![WarningSystem](/TECHCOMFEST23/img/WarnigSystem.png)
 
 Dimana ada tulisan `Warning: system() Cannot execute a blank command`, yang berarti ada command injection yang berhasil namun belum ada command yang dieksekusi. Jadi kami berpikir untuk merubah payload, dan setelah merubah-rubah dan bereksplorasi dengan command apa saja mau dan anehnya ada juga yang nggak mau, mencari cari file flag nya, dan akhirnya didapat payload yang akan menampilkan flagnya pada web. jadi final payload yang kami gunakan adalah seperti dibawah
 ```
@@ -17,7 +27,7 @@ http://103.49.238.77:57270/view_note.php?id=.user&cmd=cat/flag*
 
 Flagnya terdapat diantara data dump yang juga ikut keluar pada web
 
-![FinalPayload](/img/finalPayload.png)
+![FinalPayload](/TECHCOMFEST23/img/finalPayload.png)
 
 **Flag**
 
@@ -157,7 +167,7 @@ Sebenarnya ada sedikit celah yang bisa kita exploitasi pada chall ini, dimana sa
 
 Setelah itu, kami melanjutkan challenge ini dengan menjawab wordle berdasarkan wordlist yang diperoleh. Terdapat beberapa wordle yang memiliki banyak kemungkinan kata, disitu kami menggunakan commands yang tersedia.
 
-![FlagWordle](/img/flagWordle.png)
+![FlagWordle](/TECHCOMFEST23/img/flagWordle.png)
 
 
 **Flag**
@@ -174,7 +184,7 @@ challenge dengan cara connect nc lalu menaruh output ke file.txt dengan command 
 Dan menghasilkan file baru yang dapat di-scan serta menghasilkan
 flag seperti pada gambar dibawah:
 
-![qrAscii](/img/qrAscii.png)
+![qrAscii](/TECHCOMFEST23/img/qrAscii.png)
 
 **Flag**
 
@@ -211,7 +221,7 @@ image.save("flag.png","PNG")
 ```
 Kode tersebut akan menghasilkan gambar dari pixel yang telah kita pecah dan disusun kembali dengan resolusi `1920x1080` dan ternyata flagnya ada di gambar tersebut. 
 
-![flagPixel](/img/flagPixel.png)
+![flagPixel](/TECHCOMFEST23/img/flagPixel.png)
 
 
 **Flag**
@@ -224,7 +234,7 @@ Kode tersebut akan menghasilkan gambar dari pixel yang telah kita pecah dan disu
 
 Pada chall ini diberikan sebuah file `.wav`. kami mencoba membuka di `Sonic Visualiser` dan mencoba melihat spectogramnya, awalnya terlihat tulisan flag yang buram, lalu kami mencoba untuk melihat spectogram pada kanal kedua yang terdapat spectogram flag yang terlihat jelas
 
-![flagMono](/img/flagMono.png)
+![flagMono](/TECHCOMFEST23/img/flagMono.png)
 
 **Flag**
 
@@ -236,7 +246,7 @@ Pada chall ini diberikan sebuah file `.wav`. kami mencoba membuka di `Sonic Visu
 
 pada chall ini kita akan diberikan file `chall.zip` yang jika diunzip berisi dump memory dari android dalam bentuk file `.bin`, setelah mencoba menganalisa log pada file `com.flag.checker-maps.txt` dan meng otak-atik nya dengan `volatility`, kami pun sedikit putus asa dan mencoba keberuntungan dengan men-strings semua dump file yang ada dan mencari flag dengan command seperti pada gambar
 
-![flagChecker](/img/flagChecker.png)
+![flagChecker](/TECHCOMFEST23/img/flagChecker.png)
 
 **Flag**
 
@@ -253,7 +263,7 @@ gabungan dari banyak QR code yang muncul secara bergantian.
 Setelah melihat metadata pada video dengan `exiftool` didapatkan
 data sebagai berikut.
 
-![dataQr](/img/dataQr.png)
+![dataQr](/TECHCOMFEST23/img/dataQr.png)
 
 Diketahui video tersebut memiliki frame rate 60 fps yang bisa
 digunakan untuk mengekstrak semua gambar qrcode yang ada dalam video dengan menggunakan command ffmpeg pada terminal linux.
@@ -263,7 +273,7 @@ Command lengkap yang kami gunakan adalah
 ffmpeg -i chall.avi -r 60 -f -image2 image%3d.jpeg
 ```
 
-![ffmpeg](/img/ffmpeg.png)
+![ffmpeg](/TECHCOMFEST23/img/ffmpeg.png)
 
 Setelah tu akan didapat 840 file `image.jpeg` yang berisi QR code acak, jadi kami menggunakan python untuk men decodenya 1 persatu karena klo manual capek, lalu hasilnya akan kami input ke `hasil.txt`. Berikut adalah solver yang kami gunakan
 
@@ -298,7 +308,7 @@ for filename in file:
 
 Dan didapat hasil berupa data dump seperti dibawah yang sangat banyak dan kami pun bingung harus diapain tu data
 
-![dataDump](/img/dataDump.png)
+![dataDump](/TECHCOMFEST23/img/dataDump.png)
 
 Namun setelah melihat-lihat kembali soal, ada clue yang menyebutkan     `md5`, dan setelah diperhatikan dalam data dump tersebut ternyata terdapat baris-baris yang datanya berupa `hex` dan ketika coba saya decrypt `md5` akan menghasilkan char. Terus mencoba manual dan mulai putus asa karena hasil decryptnya tidak menunjukan indikasi flag, kami iseng untuk mendecrypt `hash` terakhir dan menghasilkan `=`, dan kami pun mendapat ide untuk menggabungkan hasil decrypt `md5 hash` tersebut dan mendecodenya dengan `base64` dan mencoba membuat solver sederhana.
 Berikut solver kami
@@ -331,7 +341,7 @@ print(md5decode)
 
 Dan didapatkan output berupa `base64` dan langsung ja di decode tar dpt dah flagnya
 
-![flagQR](/img/flagQR.png)
+![flagQR](/TECHCOMFEST23/img/flagQR.png)
 
 
 **Flag**
@@ -346,7 +356,7 @@ Dan didapatkan output berupa `base64` dan langsung ja di decode tar dpt dah flag
 
 Kami menemukan flag tersebut pada kolom komentar di laman Facebook resmi milik Dewaweb.
 
-![flagDewaweb](/img/flagDewaweb.png)
+![flagDewaweb](/TECHCOMFEST23/img/flagDewaweb.png)
 
 **Flag**
 
@@ -358,11 +368,11 @@ Kami menemukan flag tersebut pada kolom komentar di laman Facebook resmi milik D
 
 Pada chall kali ini kita disuruh untuk melacak tower dari provider yang dipakai oleh hacker, pada soal kita diberi tahu bahwa providernya itu telkomsel dan `eNB id` nya `248440`, jadi kami langsung mencari di google tower dengan `eNB id` seperti pada soal, dan didapat tower tersebut berada di jalan by pass ngurah rai seperti pada gambar
 
-![enbID](/img/enbID.png)
+![enbID](/TECHCOMFEST23/img/enbID.png)
 
 selanjutnya kita klik open in google maps untuk mencari `longitude` dan `latitudenya`
 
-![longitudeLatitude](/img/longitudeLatitude.png)
+![longitudeLatitude](/TECHCOMFEST23/img/longitudeLatitude.png)
 
 didapat `longitude` dan `latitude` nya dan tinggal masukin ke format flagnya
 
@@ -377,11 +387,11 @@ didapat `longitude` dan `latitude` nya dan tinggal masukin ke format flagnya
 
 Pada challenge ini kita diberikan file `contact.vcfm` dan setelah dilihat isinya seperti ada data dan nomor telepon
 
-![contact](/img/contact.png)
+![contact](/TECHCOMFEST23/img/contact.png)
 
 Dari banyak no telepon tersebut kami coba untuk mencari semuanya di `getcontact` dan didapatkan nomor `628988117322` dengan nama `Chariovalda Efstathios` yang ada tag This is the correct answer, jadi kami asumsikan itu flagnya, submit dan benar
 
-![pelaku](/img/pelaku.png)
+![pelaku](/TECHCOMFEST23/img/pelaku.png)
 
 
 **Flag**
@@ -391,7 +401,6 @@ Dari banyak no telepon tersebut kami coba untuk mencari semuanya di `getcontact`
 <br>
 
 <br>
-
 
 # Penutup
 
